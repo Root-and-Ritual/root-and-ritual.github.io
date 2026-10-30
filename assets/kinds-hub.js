@@ -21,6 +21,58 @@
     if (sub) { if (!g.subs.has(sub)) g.subs.set(sub, new Set()); g.subs.get(sub).add(r); }
   }
   const names = [...kinds.keys()].sort((a, b) => (ORDER.indexOf(a) + 1 || 99) - (ORDER.indexOf(b) + 1 || 99) || a.localeCompare(b));
+
+  // Insert type filter chips container above the tools / search
+  const toolsEl = document.querySelector('.tools');
+  if (toolsEl && !$('kind-chips')) {
+    const chipsWrap = document.createElement('div');
+    chipsWrap.id = 'kind-chips';
+    chipsWrap.className = 'actions';
+    chipsWrap.style.margin = '15px 0 25px';
+    chipsWrap.style.display = 'flex';
+    chipsWrap.style.flexWrap = 'wrap';
+    chipsWrap.style.gap = '10px';
+
+    // Build chips: 'All' + each kind in names, with counts
+    let activeType = '';
+
+    function renderChips() {
+      const allCount = db.length;
+      let html = `<button type="button" class="${activeType === '' ? '' : 'secondary'}" data-kind="">All (${allCount})</button>`;
+      for (const k of names) {
+        const size = kinds.get(k).records.size;
+        html += `<button type="button" class="${activeType === k ? '' : 'secondary'}" data-kind="${esc(k)}">${esc(k)} (${size})</button>`;
+      }
+      chipsWrap.innerHTML = html;
+
+      chipsWrap.querySelectorAll('button').forEach(btn => {
+        btn.onclick = () => {
+          activeType = btn.getAttribute('data-kind');
+          renderChips();
+          renderList();
+        };
+      });
+    }
+
+    toolsEl.insertAdjacentElement('afterend', chipsWrap);
+    renderChips();
+  }
+
+  function renderList() {
+    const activeType = document.querySelector('#kind-chips button:not(.secondary)')?.getAttribute('data-kind') || '';
+    const filteredNames = activeType ? [activeType] : names;
+
+    $('kind-count').textContent = `${plural(activeType ? kinds.get(activeType).records.size : db.length, 'record')} sorted into ${activeType ? 1 : names.length} kind${activeType ? '' : 's'} of being.`;
+
+    $('kind-list').innerHTML = filteredNames.map(k => {
+      const g = kinds.get(k);
+      const subs = [...g.subs.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+      return `<section class="panel kind"><div class="eyebrow">${plural(g.records.size, 'record')}</div><h2><a href="${topic([TOP, k])}">${esc(k)} →</a></h2>`
+        + (subs.length ? `<p class="kind-subs">${subs.map(([s, rs]) => `<a href="${topic([TOP, k, s])}">${esc(s)} <span>(${rs.size})</span></a>`).join('')}</p>` : '')
+        + '</section>';
+    }).join('');
+  }
+
   $('kind-count').textContent = `${plural(db.length, 'record')} sorted into ${names.length} kinds of being.`;
   $('kind-list').innerHTML = names.map(k => {
     const g = kinds.get(k);
@@ -33,6 +85,8 @@
   function search() {
     const q = $('kind-search').value.trim().toLowerCase();
     $('kind-results').hidden = !q; $('kind-list').hidden = !!q;
+    const chipsEl = $('kind-chips');
+    if (chipsEl) chipsEl.style.display = q ? 'none' : 'flex';
     if (!q) return;
     const rs = db.filter(r => JSON.stringify([r.Name, r.Category, r.Universe, r['Notes / Description'], r.DirectoryPaths]).toLowerCase().includes(q)).slice(0, 60);
     $('kind-results').innerHTML = rs.length ? rs.map(r => {
