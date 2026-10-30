@@ -1,0 +1,8 @@
+V7 IMAGE NOTES
+201 dossiers have image references: 195 local WebP images and 6 attributed remote reference thumbnails. Remote images require network access and may change at their source. Image load failures fall back to the archive seal.
+
+132 images are original AI-generated illustrated interpretations. 69 are franchise reference images, credited on their dossier and image-credits.html. Generated franchise images are interpretations, not official artwork, actor photographs, or verified likenesses. References remain copyrighted by their respective owners; source pages identify artists/rights details where available.
+
+The illustrated directory, ledger, and dossiers share each record's Image metadata. Film cards use character images, not movie posters. See assets/data.js to replace an image or add a universe.
+
+V9: 96 additional dossiers use nine bundled native vector collection emblems. Their Image.kind is emblem and the dossier caption explicitly says they are not character portraits or official franchise logos. Angel and Angelus share one earlier illustration.

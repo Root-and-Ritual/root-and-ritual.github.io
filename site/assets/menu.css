@@ -1,0 +1,23 @@
+/* Root & Ritual main menu: Directory dropdown (rr-tools/menu.css, linked on every page) */
+.nav nav{align-items:center}
+.nav .menu-dir{position:relative}
+.nav .menu-dir > summary{list-style:none;cursor:pointer;font:13px monospace;letter-spacing:.5px;text-transform:uppercase;color:var(--green,#b7c695);padding:8px 2px;display:inline-block}
+.nav .menu-dir > summary::-webkit-details-marker{display:none}
+.nav .menu-dir > summary::after{content:" ▾";font-size:11px}
+.nav .menu-dir[open] > summary::after{content:" ▴"}
+.nav .menu-dir > summary[aria-current=page],.nav .menu-dir[data-current] > summary{color:var(--gold,#ccad76)}
+.nav .menu-panel{position:absolute;right:0;top:100%;z-index:50;min-width:240px;margin-top:6px;padding:10px 0;background:var(--panel,#121c17);border:1px solid var(--line,#344036);box-shadow:0 14px 34px #000a}
+.nav .menu-panel a{display:block;padding:9px 18px;font:13px monospace;letter-spacing:.5px;text-transform:uppercase;text-decoration:none}
+.nav .menu-panel a.sub{padding-left:36px;font-size:12px}
+.nav .menu-panel a.sub::before{content:"└ ";color:var(--muted,#b1b8a9)}
+.nav .menu-panel a:hover,.nav .menu-panel a:focus{background:#1c2c21}
+.nav .menu-panel a[aria-current=page]{color:var(--gold,#ccad76)}
+@media(max-width:760px){.nav{position:relative}.nav .menu-dir{position:static}.nav .menu-panel{left:20px;right:20px;top:auto;min-width:0}}
+/* second level (Ledger) */
+.nav .menu-sub summary{list-style:none;cursor:pointer;display:block;padding:9px 18px;font:13px monospace;letter-spacing:.5px;text-transform:uppercase;color:var(--green,#b7c695)}
+.nav .menu-sub summary::-webkit-details-marker{display:none}
+.nav .menu-sub summary::after{content:" ▸";font-size:11px}
+.nav .menu-sub[open] summary::after{content:" ▾"}
+.nav .menu-sub summary:hover{background:#1c2c21}
+.nav .menu-sub a{padding-left:36px;font-size:12px}
+.nav .menu-sub a::before{content:"└ ";color:var(--muted,#b1b8a9)}

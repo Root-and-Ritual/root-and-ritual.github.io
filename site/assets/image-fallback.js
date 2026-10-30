@@ -1,0 +1,1 @@
+document.addEventListener('error',function(e){if(e.target.tagName==='IMG'&&e.target.src.includes('/portraits/')){e.target.src='assets/seal.svg';e.target.alt='Archival seal — illustration unavailable';}},true);

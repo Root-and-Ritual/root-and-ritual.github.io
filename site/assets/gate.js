@@ -1,0 +1,1 @@
+(()=>{const status=new URLSearchParams(location.search).get('status');const messages={invalid:'Please enter a valid email and agree to storage.',unavailable:'Your email could not be saved. Please try again later.',method:'Please use the email form to enter.'};if(messages[status])document.getElementById('gate-status').textContent=messages[status];})();

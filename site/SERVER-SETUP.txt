@@ -1,0 +1,14 @@
+EMAIL GATE — PHP 8.1+ REQUIRED
+Upload all site contents to your root&ritual directory. Keep the entry URL index.html. The email form posts to subscribe.php and redirects to root-and-ritual.html only after saving successfully. Static-only hosting will NOT collect email.
+
+Recommended: set ROOT_RITUAL_EMAIL_DIR to a private writable absolute directory OUTSIDE the public web root. Otherwise the bundled private/ directory is used; it must be writable by PHP. Never chmod 777. Do not put credentials in the public folder.
+
+The server file is subscribers.php: CSV data after the first PHP guard line. Download via your host's authenticated file manager/SFTP, remove the first line in your local copy, and open as CSV. Never create a public CSV export. No IP addresses, passwords, or email delivery are collected. The PHP guard and private/.htaccess protect fallback storage; confirm HTTP requests to private/subscribers.php return 403/404 before accepting real entries.
+
+Before launch: supply a visible owner contact on privacy.html and define your retention schedule (suggested: review/delete obsolete entries monthly). Submit a test email, confirm one row was saved, resubmit to confirm deduplication, test invalid email/missing consent marker, and verify storage permissions. If saving fails the visitor sees an error and stays at the gate. Emails are not verified; this register is not authentication. Add host-level rate limiting if publicly promoted.
+
+Delete an address using authenticated server tools while the form is temporarily disabled; preserve the PHP guard/header. Use HTTPS. No mailing-list integration is included.
+
+PHP is unavailable in the build environment, so server execution must be checked on your PHP host before launch.
+
+V8 gate notice: entering the form records consent to storage through the visible inline disclosure. No checkbox or additional navigation is shown. index.html contains no archive or collection links.

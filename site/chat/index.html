@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content"><meta name="color-scheme" content="dark"><meta name="robots" content="noindex, nofollow, noarchive">
+<title>Root &amp; Ritual AI Chat</title><link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png"><link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+
+<style>
+:root{--bg:#0b1210;--panel:#121c17;--ink:#ece9da;--muted:#b1b8a9;--sage:#b7c695;--gold:#ccad76;--line:#344036;--error:#ffb9a8}
+*{box-sizing:border-box}html,body{height:100%;overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Georgia,serif}
+a{color:var(--sage)}button,input,select,textarea{font:inherit}
+button{cursor:pointer;min-height:44px;border:1px solid var(--line);background:#1c2c21;color:var(--ink);padding:8px 16px;border-radius:4px}
+button:hover{border-color:var(--sage);background:#283d2d}button:disabled{opacity:.5;cursor:not-allowed}
+input,select,textarea{width:100%;padding:11px;background:#0d1812;color:var(--ink);border:1px solid #60705d;border-radius:4px}
+label{display:block;color:var(--muted);font:13px/1.6 ui-monospace,monospace;margin:10px 0 5px}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--sage)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-100px;z-index:20;background:var(--ink);color:var(--bg);padding:10px}.skip:focus{top:8px}
+.eyebrow{font:11px/1.5 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h1{font-weight:400;font-size:clamp(24px,3.4vw,34px);margin:0}h2{font-size:25px;font-weight:400;margin:0 0 8px}
+.hidden{display:none!important}
+/* site header (same as every Root & Ritual page) */
+.nav{max-width:1240px;width:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:25px;padding:22px 30px;border-bottom:1px solid var(--line);flex-shrink:0}
+.brand{display:flex;align-items:center;gap:13px;color:var(--ink);text-decoration:none;letter-spacing:2px;flex-shrink:0}.brand img{width:43px}
+.nav nav{display:flex;gap:6px 18px;flex-wrap:wrap;justify-content:flex-end}
+.nav nav a{font:13px monospace;letter-spacing:.5px;text-transform:uppercase;text-decoration:none;padding:8px 2px;display:inline-block;color:var(--sage)}
+.nav a[aria-current=page]{color:var(--gold)}
+/* layout */
+.shell{height:var(--app-height,100dvh);display:flex;flex-direction:column}
+.workspace{max-width:1240px;width:100%;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;flex:1;min-height:0;padding:20px 30px}
+.sidebar{overflow:auto;min-width:0}
+.sidebar .panel{border:1px solid var(--line);border-radius:6px;padding:14px;margin-top:14px;background:#0f1914}
+.sidebar h2{font-size:18px;margin:0 0 4px}.hint{font:13px/1.6 system-ui,sans-serif;color:var(--muted);margin:6px 0}
+.check{display:flex;gap:10px;align-items:center;font:14px system-ui,sans-serif;color:var(--ink);margin-top:12px}
+.wide{width:100%}
+.chat{display:flex;flex-direction:column;min-height:0;min-width:0;border:1px solid var(--line);border-radius:8px;background:#0c1511b8;overflow:hidden}
+.chatbar{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px 15px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.reading{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.reading button{min-height:38px;padding:6px 12px;font:13px system-ui,sans-serif}
+.status{font:13px/1.5 system-ui,sans-serif;color:var(--muted)}
+#voiceToggle{display:none}
+.messages{overflow:auto;overflow-x:hidden;flex:1;min-height:0;padding:22px;overscroll-behavior:contain;scroll-behavior:smooth}
+.welcome{padding:10px 0 20px;max-width:620px}.welcome p{color:var(--muted)}
+.choices{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.primary{background:var(--sage);color:#142014;border-color:var(--sage);font-family:ui-monospace,monospace}.primary:hover{background:#cedbb3}
+.message{margin-bottom:20px;max-width:94%;padding:14px 16px;border:1px solid var(--line);background:var(--panel);border-radius:5px}
+.message.user{margin-left:auto;background:#243323}
+.who{color:var(--gold);font:11px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.body{overflow-wrap:anywhere;font:16px/1.7 system-ui,sans-serif}.body p{margin:0 0 8px}
+.tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.tools button,.chips button{font:13px system-ui,sans-serif;min-height:38px;padding:6px 12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.hits{display:grid;gap:8px;margin:10px 0 4px}
+.hit{display:flex;gap:12px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:5px;text-decoration:none;color:var(--ink);background:#0d1812}
+.hit:hover{border-color:var(--sage)}.hit img{width:52px;height:52px;object-fit:cover;border-radius:4px;flex-shrink:0;background:#1c2c21}
+.hit strong{display:block;font-weight:normal;font-size:16px}.hit span{font:12px/1.4 system-ui,sans-serif;color:var(--muted)}
+.composer{padding:14px 18px;border-top:1px solid var(--line);background:var(--panel);flex-shrink:0}
+.modebar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}.modebar button{min-height:34px;padding:4px 12px;font:12px ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase}
+.modebar button[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+textarea#messageInput{resize:none;min-height:56px;height:64px;max-height:20dvh}
+.composerfoot{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:8px}.composerfoot .hint{margin:0}
+.composer-actions{display:flex;align-items:center;gap:8px}
+.icon-button{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;flex:0 0 44px;border-radius:50%;background:transparent;color:var(--sage)}
+.icon-button[aria-pressed=true]{color:#172016;background:var(--gold);box-shadow:0 0 0 3px #ccad7626}
+.mic-status:empty{display:none}.error{color:var(--error)}
+@media(max-width:760px){
+ .nav{align-items:start;padding:20px;flex-direction:column;gap:17px}
+ .nav nav{gap:6px 18px;justify-content:flex-start}
+ .workspace{display:flex;flex-direction:column;padding:8px 10px;gap:0;position:relative}
+ .sidebar{display:none;position:absolute;z-index:5;top:8px;left:10px;right:10px;max-height:80%;background:var(--bg);padding:14px;border:1px solid var(--gold);border-radius:8px;box-shadow:0 12px 40px #000b}
+ .sidebar.is-open{display:block}#voiceToggle{display:inline-block;min-height:38px;padding:6px 12px;font:13px system-ui,sans-serif}
+ .chat{flex:1}.chatbar{padding:8px 10px}.chatbar h1{font-size:22px}.messages{padding:12px}.message{max-width:100%;padding:12px}
+ .composer{padding:10px}.modebar{flex-wrap:nowrap}.modebar button{font-size:10px;padding:4px 8px}.keyboard-hint{display:none}.composerfoot{justify-content:flex-end}input,select,textarea{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+<link rel="stylesheet" href="../assets/menu.css"><script src="../assets/menu.js" defer></script></head>
+<body><a href="#messageInput" class="skip">Skip to message</a>
+<div class="shell">
+<header class="nav"><a class="brand" href="../root-and-ritual.html"><img src="../assets/seal.svg" alt="">ROOT &amp; RITUAL</a><nav aria-label="Main navigation"><a href="../guide.html">Start here</a><a href="../root-and-ritual.html">Sanctorum</a><a href="../organization.html">The Firm</a><a href="../handbook.html">Handbook</a><a href="../chat/" aria-current="page">AI Chat</a><details class="menu-dir"><summary>Directory</summary><div class="menu-panel"><a href="../topics.html">Browse the directory</a><details class="menu-sub"><summary>Ledger</summary><a href="../ledger.html">Master Ledger</a><a href="../demons.html">Demons &amp; Entities</a><a href="../characters.html">Characters</a></details><a href="../lore.html">Lore</a></div></details></nav></header>
+<main class="workspace">
+<aside id="chatSettings" class="sidebar" aria-label="Chat and voice settings">
+<button id="newChat" class="wide primary" type="button">New chat</button>
+<section class="panel" id="voiceInput" aria-labelledby="voiceHead"><h2 id="voiceHead">Voice</h2><p class="hint">Choose how replies sound when read aloud. Voices come from your device and browser.</p>
+<label for="voice">Reading voice</label><select id="voice"><option value="">Browser default</option></select>
+<label for="rate">Reading speed</label><select id="rate"><option value="0.8">0.8× — slower</option><option value="1" selected>1× — natural</option><option value="1.2">1.2× — faster</option><option value="1.5">1.5× — quick</option></select>
+<label class="check"><input id="autoRead" type="checkbox">Read replies automatically</label>
+<label for="dictationLanguage">Voice input language</label><select id="dictationLanguage"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option></select>
+</section>
+</aside>
+<section class="chat" aria-label="Root and Ritual AI conversation">
+<div class="chatbar"><div><div class="eyebrow">The Sanctorum · Conversation desk</div><h1>Root &amp; Ritual AI Chat</h1></div>
+<div class="reading"><span id="speechStatus" class="status" role="status"></span><button id="pauseSpeech" type="button" class="hidden">Pause</button><button id="stopSpeech" type="button" class="hidden">Stop reading</button><button id="voiceToggle" type="button" aria-expanded="false" aria-controls="chatSettings">Voice &amp; new chat</button></div></div>
+<div id="messages" class="messages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions text"></div>
+<form id="composer" class="composer">
+<div class="modebar" role="group" aria-label="What are you doing?"><button type="button" data-mode="search" aria-pressed="true">Database &amp; ledger search</button><button type="button" data-mode="case" aria-pressed="false">Submit a case</button></div>
+<label for="messageInput" class="hidden">Your message</label><textarea id="messageInput" placeholder="Name an entity, universe or topic…" required></textarea>
+<div class="composerfoot"><p class="hint keyboard-hint">Enter to send · Shift + Enter for a new line</p><div class="composer-actions"><button type="button" id="dictate" class="icon-button" aria-label="Start voice input" title="Start voice input" aria-pressed="false" aria-describedby="dictationStatus"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg></button><button type="submit" id="send" class="primary">Send →</button></div></div>
+<p id="dictationStatus" class="hint mic-status" role="status"></p><p id="error" class="hint error hidden" role="alert"></p>
+</form>
+</section></main></div>
+<script src="../assets/data.js"></script>
+<script>
+'use strict';
+/* Root & Ritual Chat.
+   Rule 1: it knows nothing outside the Root & Ritual site (and nothing about the gate or how to get past it).
+   Rule 2: the only search it performs is the site's own database and ledger (assets/data.js), right here in
+   the browser, so no outside service or AI model is ever asked anything. It can also take a case submission. */
+const $=id=>document.getElementById(id);
+const DB=window.ARCHIVE||[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let mode='search',caseStep=-1,caseData={},utterance=null,readingQueue=[],paused=false,speechGeneration=0;
+const speechSupported='speechSynthesis' in window&&'SpeechSynthesisUtterance' in window;
+function error(t=''){$('error').textContent=t;$('error').classList.toggle('hidden',!t);}
+
+/* ---------- messages ---------- */
+function message(html,role,spoken){
+ const card=document.createElement('article');card.className='message '+role;
+ card.innerHTML=`<div class="who">${role==='user'?'You':'Root &amp; Ritual AI'}</div><div class="body"></div>`;
+ const body=card.querySelector('.body');if(role==='user')body.textContent=html;else body.innerHTML=html;
+ if(role==='assistant'&&speechSupported&&spoken){const tools=document.createElement('div');tools.className='tools';const b=document.createElement('button');b.type='button';b.textContent='Read aloud';b.setAttribute('aria-label','Read this reply aloud');b.onclick=()=>speak(spoken);tools.append(b);card.append(tools);}
+ $('messages').append(card);card.scrollIntoView({block:'end'});
+ if(role==='assistant'&&spoken&&$('autoRead').checked)speak(spoken);
+ return card;
+}
+function chips(card,list){const row=document.createElement('div');row.className='chips';list.forEach(([label,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{row.remove();fn();};row.append(b);});card.append(row);}
+
+function welcome(){
+ $('messages').innerHTML='<div class="welcome" id="welcome"><div class="eyebrow">Every conversation leaves a root.</div><h2>How can I help you?</h2><p>I’m the Root &amp; Ritual AI. I can search the archive’s database and ledger, or take down a case for the Intake desk. <a href="../organization.html#ai-chat">How I work</a></p><div class="choices"><button type="button" class="primary" data-pick="search">1. Database &amp; ledger search</button><button type="button" data-pick="case">2. Submit a case</button></div></div>';
+ $('messages').querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>setMode(b.dataset.pick,true));
+}
+function setMode(m,announce){
+ mode=m;document.querySelectorAll('.modebar button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===m)));
+ $('welcome')?.remove();
+ if(m==='search'){caseStep=-1;$('messageInput').placeholder='Name an entity, universe or topic…';
+  if(announce)message('<p>The ledger is open. Type a name, a universe (for example <em>Buffyverse</em> or <em>Norse</em>), or a kind of being (<em>vampire</em>, <em>dragon</em>, <em>banshee</em>).</p>','assistant','The ledger is open. Type a name, a universe, or a kind of being.');}
+ else startCase();
+ $('messageInput').focus();
+}
+document.querySelectorAll('.modebar button').forEach(b=>b.onclick=()=>{if(b.dataset.mode!==mode||b.dataset.mode==='case')setMode(b.dataset.mode,true);});
+
+/* ---------- archive search (the only search this desk can do) ---------- */
+const STOP=new Set('a an the of and or to in on for is are was who what whats which where tell me about show find search look up any some info information on please can you do i want know list all entity entities record records character characters dossier'.split(' '));
+const PAGES=[ // Root & Ritual's own structure, so questions about the firm point to the right page
+ [/firm|organi[sz]ation|staff|who keeps|who runs/,'organization.html','The Firm — who keeps the records'],
+ [/covenant|oath|pact/,'covenant.html','The Shared Covenant'],
+ [/threat|classification|tier|omega|alpha|contract status|binding/,'handbook.html','The Handbook — threat tiers and contract statuses'],
+ [/glossary|term|word|mean/,'glossary.html','The Glossary'],
+ [/lore|religion|prophe|conspirac|ending|apocalyp|cryptid/,'lore.html','The Lore Library'],
+ [/start|begin|new here|how do i|guide|help/,'guide.html','Start here — the reader’s guide'],
+ [/case|report|witness|intake/,'submit-case.html','The Intake desk (or choose “Submit a case” below)'],
+ [/film|movie/,'films.html','Film appearances'],
+ [/source|credit|image|artwork/,'sources.html','Sources and editorial notes'],
+];
+function terms(q){return q.toLowerCase().replace(/[^\p{L}\p{N}\s'-]/gu,' ').split(/\s+/).filter(w=>w&&!STOP.has(w)).map(w=>w.replace(/'s$/,'').replace(/(?<=..)s$/,''));}
+function score(r,ws,phrase){
+ const name=r.Name.toLowerCase(),cat=(r.Category||'').toLowerCase(),uni=(r.Universe||'').toLowerCase(),rest=[r['Origin / Lore'],r['Notes / Description'],(r.DirectoryPaths||[]).flat().join(' '),(r.Types||[]).join(' ')].join(' ').toLowerCase();
+ let s=0;if(phrase&&name===phrase)s+=100;else if(phrase&&name.includes(phrase))s+=40;
+ for(const w of ws){if(name.split(/[\s/()·,-]+/).some(t=>t.startsWith(w)))s+=12;else if(name.includes(w))s+=8;if(uni.includes(w))s+=5;if(cat.includes(w))s+=5;if(rest.includes(w))s+=2;}
+ return ws.every(w=>(name+' '+cat+' '+uni+' '+rest).includes(w))?s+10:s*0.4;
+}
+function search(q){
+ const ws=terms(q),phrase=ws.join(' ');
+ const pages=PAGES.filter(([re])=>re.test(q.toLowerCase()));
+ if(!ws.length&&!pages.length)return reply('<p>I can only search the Root &amp; Ritual archive. Try a name, a universe or a kind of being.</p>','I can only search the Root and Ritual archive. Try a name, a universe or a kind of being.');
+ const hits=DB.map(r=>[score(r,ws,phrase),r]).filter(([s])=>s>=8).sort((a,b)=>b[0]-a[0]);
+ const top=hits.slice(0,6).map(([,r])=>r);
+ let html='',spoken='';
+ if(top.length){
+  html+=`<p>I found ${hits.length} matching record${hits.length===1?'':'s'} in the ledger${hits.length>6?'. Here are the closest six':''}:</p><div class="hits">`+top.map(r=>`<a class="hit" href="../entity.html?id=${encodeURIComponent(r['Entity ID'])}"><img src="../${esc(r.Image&&r.Image.src)}" alt="" loading="lazy"><div><strong>${esc(r.Name)}</strong><span>${esc(r['Entity ID'])} · ${esc(r.Category)}<br>${esc(r['Notes / Description']).slice(0,140)}</span></div></a>`).join('')+'</div>';
+  if(hits.length>6)html+=`<p><a href="../ledger.html?q=${encodeURIComponent(q.trim())}">See all ${hits.length} in the Master Ledger →</a></p>`;
+  spoken=`I found ${hits.length} matching records. The closest are: ${top.slice(0,3).map(r=>r.Name).join(', ')}.`;
+ }
+ if(pages.length){html+='<p>From the archive’s own pages:</p><p>'+pages.map(([,u,t])=>`<a href="../${u}">${esc(t)} →</a>`).join('<br>')+'</p>';spoken+=(spoken?' ':'')+'There is also a page about that: '+pages[0][2]+'.';}
+ if(!top.length&&!pages.length){html='<p>No record in the ledger matches that. Try another spelling, a universe name, or browse the <a href="../topics.html">directory</a>.</p>';spoken='No record in the ledger matches that. Try another spelling or a universe name.';}
+ reply(html,spoken);
+}
+function reply(html,spoken){message(html,'assistant',spoken);}
+
+/* ---------- case intake (same Intake desk as submit-case.html) ---------- */
+const CASE=[
+ ['title','What should we call this case? A short title, like “Lights over the fen road”.',v=>v.length>=3&&v.length<=120,'A title needs 3 to 120 characters.',false],
+ ['account','Tell me what happened, as you saw it. A few sentences, please — the Intake desk assigns no conclusion.',v=>v.length>=20&&v.length<=3000,'Please give at least a few sentences (20 characters or more).',false],
+ ['place','Where did it happen? (optional)',v=>v.length<=120,'Keep the place under 120 characters.',true],
+ ['when','When did it happen? A date or a season is fine. (optional)',v=>v.length<=60,'Keep this under 60 characters.',true],
+ ['alias','What name or alias should go on the case? (optional)',v=>v.length<=60,'Keep the name under 60 characters.',true],
+ ['email','An email for case updates? (optional — never shown publicly)',v=>!v||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),'That doesn’t look like an email address. Try again or skip.',true],
+];
+function startCase(){caseStep=0;caseData={};$('messageInput').placeholder='Your answer…';message('<p>The Intake desk is open. I’ll ask a few questions, then file your case and give you its number.</p>','assistant','The Intake desk is open. I will ask a few questions, then file your case.');ask();}
+function ask(){
+ if(caseStep<CASE.length){const [,q,,,optional]=CASE[caseStep];const c=message(`<p>${esc(q)}</p>`,'assistant',q);if(optional)chips(c,[['Skip',()=>answerCase('')]]);return;}
+ const c=message(`<p>Ready to file <strong>${esc(caseData.title)}</strong>. By filing, you agree the site owner may store what you wrote (and your email, if given) for the case record.</p>`,'assistant','Ready to file your case. Do you agree to the case record terms?');
+ chips(c,[['I agree — file it',fileCase],['Cancel',()=>{caseStep=-1;setMode('search',false);reply('<p>Case cancelled. Nothing was filed.</p>','Case cancelled. Nothing was filed.');}]]);
+}
+function answerCase(v){
+ const [key,,ok,bad]=CASE[caseStep];v=v.trim();
+ if(v.toLowerCase()==='skip')v='';
+ if(!ok(v)){reply(`<p>${esc(bad)}</p>`,bad);return;}
+ caseData[key]=v;caseStep++;ask();
+}
+async function fileCase(){
+ const body=new URLSearchParams({...caseData,website:'',consent:'yes'});
+ reply('<p>Filing with the Intake desk…</p>','');
+ try{
+  const r=await fetch('../case',{method:'POST',body,credentials:'same-origin'});
+  const u=new URL(r.url,location.href),id=u.searchParams.get('id'),bad=u.searchParams.get('case');
+  if(!r.ok||bad||!id)throw new Error(bad||r.status);
+  reply(`<p>Your case is filed. Case number: <strong>${esc(id)}</strong></p><p><a href="../case.html?id=${encodeURIComponent(id)}">Follow its progress →</a></p>`,`Your case is filed. Your case number is ${id.split('').join(' ')}.`);
+ }catch(e){reply('<p>The Intake desk couldn’t take the case just now. Your answers are still here — try again in a moment, or use the <a href="../submit-case.html">Submit a case</a> page.</p>','The Intake desk could not take the case just now. Please try again in a moment.');caseStep=CASE.length;return;}
+ caseStep=-1;setMode('search',false);
+}
+
+/* ---------- composer ---------- */
+$('composer').addEventListener('submit',e=>{
+ e.preventDefault();if(window.rootRitualDictation?.isActive())return;
+ const text=$('messageInput').value.trim();if(!text)return;error();stopSpeech();
+ $('welcome')?.remove();message(text,'user');$('messageInput').value='';
+ if(mode==='case'&&caseStep>=0&&caseStep<CASE.length)answerCase(text);else if(mode==='case'&&caseStep>=CASE.length)reply('<p>Choose “I agree — file it” or “Cancel” above.</p>','Choose I agree, or cancel.');else search(text);
+ $('messageInput').focus();
+});
+$('messageInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing&&!matchMedia('(pointer: coarse)').matches){e.preventDefault();$('composer').requestSubmit();}});
+$('newChat').onclick=()=>{stopSpeech();caseStep=-1;mode='search';document.querySelectorAll('.modebar button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode==='search')));welcome();error();$('messageInput').value='';closeSettings();$('messageInput').focus();};
+
+/* ---------- read aloud (controls live in the chat bar) ---------- */
+function voices(){if(!speechSupported)return;const sel=$('voice').value;$('voice').replaceChildren(new Option('Browser default',''),...speechSynthesis.getVoices().map(v=>new Option(v.name+' · '+v.lang,v.voiceURI)));try{const saved=localStorage.getItem('rr_voice');if(saved&&!sel)$('voice').value=saved;}catch{}if(sel&&[...$('voice').options].some(o=>o.value===sel))$('voice').value=sel;}
+function readingUI(on){$('pauseSpeech').classList.toggle('hidden',!on);$('stopSpeech').classList.toggle('hidden',!on);if(!on){$('pauseSpeech').textContent='Pause';}}
+function stopSpeech(){speechGeneration++;readingQueue=[];utterance=null;paused=false;if(speechSupported)speechSynthesis.cancel();readingUI(false);$('speechStatus').textContent='';}
+function speak(text){
+ stopSpeech();if(!speechSupported||!text)return;const gen=speechGeneration;
+ readingQueue=text.match(/[^.!?\n]{1,180}(?:[.!?\n]+|$)|[^.!?\n]{1,180}/g)||[text];readingUI(true);
+ (function next(){if(gen!==speechGeneration)return;if(!readingQueue.length){readingUI(false);$('speechStatus').textContent='';return;}
+  utterance=new SpeechSynthesisUtterance(readingQueue.shift());utterance.rate=Number($('rate').value);
+  const v=speechSynthesis.getVoices().find(v=>v.voiceURI===$('voice').value);if(v){utterance.voice=v;utterance.lang=v.lang;}
+  utterance.onend=next;utterance.onerror=e=>{if(gen!==speechGeneration)return;stopSpeech();$('speechStatus').textContent='Reading unavailable ('+e.error+'). Try another voice.';};
+  $('speechStatus').textContent='Reading aloud…';speechSynthesis.speak(utterance);})();
+}
+$('pauseSpeech').onclick=()=>{paused=!paused;paused?speechSynthesis.pause():speechSynthesis.resume();$('pauseSpeech').textContent=paused?'Resume':'Pause';$('speechStatus').textContent=paused?'Paused':'Reading aloud…';};
+$('stopSpeech').onclick=stopSpeech;
+$('voice').onchange=()=>{try{localStorage.setItem('rr_voice',$('voice').value);}catch{}};
+$('rate').onchange=()=>{try{localStorage.setItem('rr_rate',$('rate').value);}catch{}};
+$('autoRead').onchange=()=>{try{localStorage.setItem('rr_autoread',$('autoRead').checked?'1':'');}catch{}};
+try{const r=localStorage.getItem('rr_rate');if(r)$('rate').value=r;$('autoRead').checked=localStorage.getItem('rr_autoread')==='1';}catch{}
+if(speechSupported){voices();speechSynthesis.addEventListener('voiceschanged',voices);}else{['autoRead','voice','rate'].forEach(id=>$(id).disabled=true);}
+window.addEventListener('pagehide',()=>{if(speechSupported)speechSynthesis.cancel();});
+
+/* ---------- small screens: voice settings slide over the chat ---------- */
+function closeSettings(){$('chatSettings').classList.remove('is-open');$('voiceToggle').setAttribute('aria-expanded','false');}
+$('voiceToggle').onclick=()=>{const open=$('chatSettings').classList.toggle('is-open');$('voiceToggle').setAttribute('aria-expanded',String(open));};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSettings();});
+function fit(){document.documentElement.style.setProperty('--app-height',(window.visualViewport?.height||window.innerHeight)+'px');}
+window.visualViewport?.addEventListener('resize',fit);window.addEventListener('resize',fit);fit();
+welcome();
+</script><script src="dictation.js"></script>
+</body></html>

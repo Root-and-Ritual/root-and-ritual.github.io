@@ -1,0 +1,34 @@
+Entity ID,Name,Category,Origin / Lore,Threat Level,Contract Status,First Appearance / Record,Notes / Description
+ENT-001,The Root Sovereign,Apex Council,Deep-forest primeval entity,Omega,Active Binding,Root & Ritual Archives Vol. I,Supreme administrative authority of the firm.
+ENT-002,Ledger Wight,Liturgical Bureaucracy,Paper-bound phantom accountant,Beta,Contracted,Audit Hall 4B,Consumes unfiled paperwork and extracts unpaid favors.
+ENT-003,Grave-Root Ghoul,Ghouls & Undead,Barrow-dweller of the northern moors,Gamma,Contained,Moors Ledger #12,Scavenges archival fragments from shallow burial sites.
+ENT-004,Thorn-Crown Revenant,Ghosts & Spirits,Betrayed magistrate seeking redress,Delta,Hostile,Trial Records 1892,Bound to the mahogany boardroom by unsettled grievances.
+ENT-005,Moss-Back Behemoth,Primal Beasts,Ancient silvan guardian,Alpha,Dormant,Canopy Codex,Massive entity serving as both structural support and security.
+ENT-006,The Obsidian Grimoire,Artifacts & Relics,Carved from petrified ironwood,Omega,Secured in Vault 9,Catalog of Binding Spells,Contains rites capable of rewriting regional borders.
+ENT-007,Feral Bog Goblin,Goblins & Gremlins,Fen-dwelling trickster entity,Epsilon,Unmanaged,Swamp Margin Log,Known for stealing sealing wax and disrupting boundary stones.
+ENT-008,The Null Emissary,Angels & Celestials,Celestial auditor of the outer rim,Omega,Neutralized/Detained,Skyline Incident,Inspects celestial-infernal tax compliance on behalf of higher powers.
+ENT-009,The Primeval Arborist,Apex Council,Ancient entity presiding over timber and lineage,Omega,Active Binding,Canopy Treaties,Oversees the growth and culling of corporate dynasties.
+ENT-010,Notary of the Abyss,Liturgical Bureaucracy,Entity specialized in binding infernal covenants,Alpha,Retained,Covenant Registry,Seals contracts with molten wax and hemlock ink.
+ENT-011,Fen-Stalker Wraith,Ghouls & Undead,Marshland apparition guarding sunken relics,Gamma,Contained,Fen Logs #4,Feeds on unfulfilled promises and damp parchment.
+ENT-012,Boardroom Poltergeist,Ghosts & Spirits,Restless spirit of a hostile takeover victim,Beta,Restless,Suite 600 Records,Throws heavy ledgers during quarterly reviews.
+ENT-013,Iron-Tusk Boar,Primal Beasts,Boar of immense scale embodying relentless momentum,Delta,Contracted,Wild Frontier Codex,Used to breach resistant corporate rival barriers.
+ENT-014,Sigil of the Bloodwood,Artifacts & Relics,Carved talisman granting immunity to audits,Alpha,Secured,Vault 3,Protects bearer from outside regulatory scrutiny.
+ENT-015,Scrap-Heap Gremlin,Goblins & Gremlins,Gremlin inhabiting filing cabinets and archives,Epsilon,Managed,Filing Room B,Consumes paperclips and sabotages shredders.
+ENT-016,Seraphic Tax Inspector,Angels & Celestials,Rigid celestial auditor enforcing absolute compliance,Omega,Hostile,Celestial Audit 2024,Attempts to repossess soul collateral without proper notice.
+ENT-017,The Hollow Chancellor,Apex Council,Ancient entity representing corporate void and zero-sum policy,Omega,Active Binding,Sanctorum Archives Vol. II,Presides over budget cuts and metaphysical downsizing.
+ENT-018,Stamping Ghoul,Ghouls & Undead,Undead mailroom clerk fused with sorting machinery,Beta,Contracted,Basement Archives,Stamps incoming cursed mail with necrotic ink.
+ENT-019,Bramble Banshee,Ghosts & Spirits,Wailing spirit inhabiting the perimeter hedges,Delta,Hostile,Perimeter Log 7,Warns trespassers of impending contract termination via acoustic shock.
+ENT-020,Gilded Imp,Goblins & Gremlins,Small demonic auditor specializing in petty cash embezzlement,Gamma,Contained,Accounting Sub-Level 3,Hoards paperclips and golden staples in ductwork.
+ENT-021,Chalice of Hemlock,Artifacts & Relics,Ceremonial chalice used in executive oath-taking,Alpha,Secured in Vault 2,Executive Rites,Drinking from it binds the subordinate's lineage to the firm for 99 years.
+ENT-022,Canopy Leviathan,Primal Beasts,Sky-faring beast of the deep woods,Omega,Dormant,Upper Atmosphere Logs,Drifts silently above the firm's properties to deter hostile aerial reconnaissance.
+ENT-023,Archangel Michael's Signet,Faith & Lore Relics,Shield-ring forged from celestial brass,Omega,Secured (Vault Alpha),Book of Revelation Records,Wielded by celestial defense forces during the primal war against chaos.
+ENT-024,Asmodeus Ledger of Oaths,Faith & Lore Relics,Infernal registry of broken vows,Omega,Retained in Vault Omega,Abyssal Codex,Contains the true names of all mortals who bartered conscience for leverage.
+ENT-025,The Four Horsemen Vanguard,Faith & Lore Omens,Harbingers of structural apocalypse,Omega,Monitored,Revelation Scroll VI,Manifests during systemic civilization resets and terminal debt collapses.
+ENT-026,The Spear of Longinus (Replica/Relic),Faith & Lore Relics,Piercing implement of divine judgment,Omega,Secured,Passion Archives,Possesses severe metaphysical resonance against immortal contracts.
+ENT-027,The Shanshu Scroll,Myths & Legends,Prophetic text detailing the end of days and ultimate redemption,Omega,Secured in Master Archive,Prophecy of Shanshu,Foretells the twilight where all dark firms face final reckoning.
+ENT-028,The Ark of the Covenant,Faith & Lore Relics,Golden chest containing divine law and absolute destruction,Omega,Unlocated / Rumored,Mosaic Records,Emits lethal energetic discharge when improperly audited by mortals.
+ENT-029,Sasquatch / Bigfoot,Cryptids & Conspiracies,Elusive hominid of the deep timberlands,Delta,Unmanaged,Forest Perimeter Logs,Adept at evading both trail cameras and corporate surveillance drones.
+ENT-030,Nessie (Loch Ness Cryptid),Cryptids & Conspiracies,Aqueous plesiosauroid entity in deep Scottish loch,Gamma,Contained (Regional),Highland Waters Log,Monitored by naval intelligence as a natural acoustic anomaly.
+ENT-031,Skinwalker (Yee naaldlooshii),Cryptids & Conspiracies,Shapeshifting practitioner of dark lore,Omega,Hostile / Avoid,Navajo Frontier Records,Capable of mimicking human voices and animal forms to lure wanderers off trails.
+ENT-032,Agartha Subterranean Network,Cryptids & Conspiracies,Ancient hollow-earth civilization and tunnel systems,Omega,Restricted Access,Sub-Basement Vault 12,Extensive underground maglev tunnels connecting global corporate HQs.
+ENT-033,UAP / Greys Infiltration Unit,Cryptids & Conspiracies,Extraterrestrial reconnaissance scout operating among civilian populace,Omega,Monitored,Skyline Sensor Net,Observed conducting unauthorized metaphysical probes near data centers.
