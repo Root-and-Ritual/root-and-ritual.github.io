@@ -197,6 +197,10 @@ function answerCase(v){
  caseData[key]=v;caseStep++;ask();
 }
 async function fileCase(){
+ if(location.hostname.endsWith('github.io')){
+  reply('<p>Case filing is paused on this public edition of Root &amp; Ritual. The Intake desk will reopen soon; your answers were not sent anywhere.</p>','Case filing is paused on this public edition. The Intake desk will reopen soon.');
+  caseStep=-1;setMode('search',false);return;
+ }
  const body=new URLSearchParams({...caseData,website:'',consent:'yes'});
  reply('<p>Filing with the Intake desk…</p>','');
  try{
