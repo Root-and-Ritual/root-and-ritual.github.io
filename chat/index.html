@@ -157,8 +157,6 @@ function score(r,ws,phrase){
  for(const w of ws){if(name.split(/[\s/()·,-]+/).some(t=>t.startsWith(w)))s+=12;else if(name.includes(w))s+=8;if(uni.includes(w))s+=5;if(cat.includes(w))s+=5;if(rest.includes(w))s+=2;}
  return ws.every(w=>(name+' '+cat+' '+uni+' '+rest).includes(w))?s+10:s*0.4;
 }
-// Links in chat replies always open the live archive page in a new tab, so the chat stays open
-const SITE='https://root-and-ritual.github.io/';
 function search(q){
  const ws=terms(q),phrase=ws.join(' ');
  const pages=PAGES.filter(([re])=>re.test(q.toLowerCase()));
@@ -167,12 +165,12 @@ function search(q){
  const top=hits.slice(0,6).map(([,r])=>r);
  let html='',spoken='';
  if(top.length){
-  html+=`<p>I found ${hits.length} matching record${hits.length===1?'':'s'} in the ledger${hits.length>6?'. Here are the closest six':''}:</p><div class="hits">`+top.map(r=>`<a class="hit" target="_blank" rel="noopener" href="${SITE}entity.html?id=${encodeURIComponent(r['Entity ID'])}"><img src="../${esc(r.Image&&r.Image.src)}" alt="" loading="lazy"><div><strong>${esc(r.Name)}</strong><span>${esc(r['Entity ID'])} · ${esc(r.Category)}<br>${esc(r['Notes / Description']).slice(0,140)}</span></div></a>`).join('')+'</div>';
-  if(hits.length>6)html+=`<p><a target="_blank" rel="noopener" href="${SITE}ledger.html?q=${encodeURIComponent(q.trim())}">See all ${hits.length} in the Master Ledger →</a></p>`;
+  html+=`<p>I found ${hits.length} matching record${hits.length===1?'':'s'} in the ledger${hits.length>6?'. Here are the closest six':''}:</p><div class="hits">`+top.map(r=>`<a class="hit" href="../entity.html?id=${encodeURIComponent(r['Entity ID'])}"><img src="../${esc(r.Image&&r.Image.src)}" alt="" loading="lazy"><div><strong>${esc(r.Name)}</strong><span>${esc(r['Entity ID'])} · ${esc(r.Category)}<br>${esc(r['Notes / Description']).slice(0,140)}</span></div></a>`).join('')+'</div>';
+  if(hits.length>6)html+=`<p><a href="../ledger.html?q=${encodeURIComponent(q.trim())}">See all ${hits.length} in the Master Ledger →</a></p>`;
   spoken=`I found ${hits.length} matching records. The closest are: ${top.slice(0,3).map(r=>r.Name).join(', ')}.`;
  }
- if(pages.length){html+='<p>From the archive’s own pages:</p><p>'+pages.map(([,u,t])=>`<a target="_blank" rel="noopener" href="${SITE}${u}">${esc(t)} →</a>`).join('<br>')+'</p>';spoken+=(spoken?' ':'')+'There is also a page about that: '+pages[0][2]+'.';}
- if(!top.length&&!pages.length){html='<p>No record in the ledger matches that. Try another spelling, a universe name, or browse the <a target="_blank" rel="noopener" href="'+SITE+'topics.html">directory</a>.</p>';spoken='No record in the ledger matches that. Try another spelling or a universe name.';}
+ if(pages.length){html+='<p>From the archive’s own pages:</p><p>'+pages.map(([,u,t])=>`<a href="../${u}">${esc(t)} →</a>`).join('<br>')+'</p>';spoken+=(spoken?' ':'')+'There is also a page about that: '+pages[0][2]+'.';}
+ if(!top.length&&!pages.length){html='<p>No record in the ledger matches that. Try another spelling, a universe name, or browse the <a href="../topics.html">directory</a>.</p>';spoken='No record in the ledger matches that. Try another spelling or a universe name.';}
  reply(html,spoken);
 }
 function reply(html,spoken){message(html,'assistant',spoken);}
@@ -209,8 +207,8 @@ async function fileCase(){
   const r=await fetch('../case',{method:'POST',body,credentials:'same-origin'});
   const u=new URL(r.url,location.href),id=u.searchParams.get('id'),bad=u.searchParams.get('case');
   if(!r.ok||bad||!id)throw new Error(bad||r.status);
-  reply(`<p>Your case is filed. Case number: <strong>${esc(id)}</strong></p><p><a target="_blank" rel="noopener" href="${SITE}case.html?id=${encodeURIComponent(id)}">Follow its progress →</a></p>`,`Your case is filed. Your case number is ${id.split('').join(' ')}.`);
- }catch(e){reply('<p>The Intake desk couldn’t take the case just now. Your answers are still here — try again in a moment, or use the <a target="_blank" rel="noopener" href="'+SITE+'submit-case.html">Submit a case</a> page.</p>','The Intake desk could not take the case just now. Please try again in a moment.');caseStep=CASE.length;return;}
+  reply(`<p>Your case is filed. Case number: <strong>${esc(id)}</strong></p><p><a href="../case.html?id=${encodeURIComponent(id)}">Follow its progress →</a></p>`,`Your case is filed. Your case number is ${id.split('').join(' ')}.`);
+ }catch(e){reply('<p>The Intake desk couldn’t take the case just now. Your answers are still here — try again in a moment, or use the <a href="../submit-case.html">Submit a case</a> page.</p>','The Intake desk could not take the case just now. Please try again in a moment.');caseStep=CASE.length;return;}
  caseStep=-1;setMode('search',false);
 }
 
