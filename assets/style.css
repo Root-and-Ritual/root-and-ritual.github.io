@@ -10,12 +10,6 @@
 
 .reference-art{width:min(42%,280px);padding:16px;background:#141e18;border:1px solid var(--line)}.reference-art img{width:auto;max-width:100%;height:auto;margin:0 auto;display:block}.reference-art figcaption{margin-top:15px}@media(max-width:760px){.reference-art{width:100%;max-width:320px}}
 
-.reference-art{width:min(42%,280px);padding:16px;background:#141e18;border:1px solid var(--line)}.reference-art img{width:auto;max-width:100%;height:auto;margin:0 auto;display:block}.reference-art figcaption{margin-top:15px}@media(max-width:760px){.reference-art{width:100%;max-width:320px}}
-
-.reference-art{width:min(42%,280px);padding:16px;background:#141e18;border:1px solid var(--line)}.reference-art img{width:auto;max-width:100%;height:auto;margin:0 auto;display:block}.reference-art figcaption{margin-top:15px}@media(max-width:760px){.reference-art{width:100%;max-width:320px}}
-
-.reference-art{width:min(42%,280px);padding:16px;background:#141e18;border:1px solid var(--line)}.reference-art img{width:auto;max-width:100%;height:auto;margin:0 auto;display:block}.reference-art figcaption{margin-top:15px}@media(max-width:760px){.reference-art{width:100%;max-width:320px}}
-
 .gate-form{max-width:460px;margin:28px 0}.gate-form>label:first-child{display:block;font:1.3rem Georgia,serif;margin-bottom:10px}.gate-form input[type=email]{box-sizing:border-box;width:100%;padding:14px;background:#101b16;color:#f2ecdd;border:1px solid #9aab91;border-radius:3px;font:inherit}.gate-form .consent{display:block;font-size:.85rem;line-height:1.7;margin:16px 0}.gate-form .consent input{accent-color:#b5c796}.gate-form button{cursor:pointer;font:inherit}.form-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}#gate-status{color:#f0cb9c}
 
 .gate-only{min-height:100vh;display:grid;place-items:center}.gate-intro{width:min(540px,90vw);padding:45px 0;text-align:center}.gate-intro .gate-form{margin:26px auto;text-align:left}.gate-intro .seal{width:90px}.gate-intro h1{font-size:clamp(2.7rem,7vw,4.7rem)}.record-paths{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.record-paths a{padding:8px;border:1px solid var(--line);font-size:.85rem}#topic-breadcrumbs{margin:20px 0;line-height:2}#topic-children{margin-top:28px}
@@ -33,3 +27,24 @@
 .foot .disclaimer a{margin:0}
 .nav nav{gap:6px 18px}.nav nav a{letter-spacing:.5px}
 .kinds{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}.kind h2{margin:6px 0 10px}.kind h2 a{text-decoration:none}.kind-subs{margin:0;font:13px/1.9 monospace}.kind-subs a{display:inline-block;margin:0 14px 4px 0}.kind-subs span{color:var(--muted)}
+
+/* Ghostbusters destination cards */
+.ghostbusters-destinations {
+  display: grid;
+  gap: 15px;
+  margin: 25px 0;
+}
+.ghostbusters-dest-card {
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 20px 25px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.ghostbusters-dest-card:hover {
+  background: #181020;
+  border-color: var(--gold);
+  color: var(--ink);
+}
