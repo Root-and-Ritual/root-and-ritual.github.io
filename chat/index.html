@@ -85,6 +85,28 @@ textarea#messageInput{resize:none;min-height:56px;height:64px;max-height:20dvh}
 <label class="check"><input id="autoRead" type="checkbox">Read replies automatically</label>
 <label for="dictationLanguage">Voice input language</label><select id="dictationLanguage"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="es-ES">Español</option><option value="fr-FR">Français</option><option value="de-DE">Deutsch</option></select>
 </section>
+<details class="panel" id="howTo"><summary><strong>How to use the Root &amp; Ritual AI</strong></summary>
+<h3>Search the database and ledger</h3>
+<ol>
+<li>Choose <strong>1. Database &amp; ledger search</strong>.</li>
+<li>Type a name (<em>Gandalf</em>), a universe (<em>Buffyverse</em>, <em>Norse</em>) or a kind of being (<em>vampire</em>, <em>dragon</em>, <em>banshee</em>).</li>
+<li>Tap any result to open its dossier. When there are many matches, follow <strong>See all in the Master Ledger</strong> for the full list.</li>
+<li>Questions about the firm itself (the covenant, threat tiers, the glossary) bring up links to the right page.</li>
+</ol>
+<h3>Submit a case</h3>
+<ol>
+<li>Choose <strong>2. Submit a case</strong>.</li>
+<li>Answer one question at a time: a short title, what happened, and optionally where, when, a name or alias, and an email for updates. Tap <strong>Skip</strong> for anything optional.</li>
+<li>Choose <strong>I agree — file it</strong>. You receive a case number (for example RR-20261022-AB12) and a link to follow the case through Intake, Identification, Review, Disposition and Continuity.</li>
+</ol>
+<h3>Voice</h3>
+<ul>
+<li><strong>Speak instead of typing:</strong> tap the microphone, talk, then tap it again. Your words appear in the message box to check before you send; nothing is sent automatically. Voice input uses your browser’s own speech recognition, which on some browsers is processed by the browser maker’s speech service.</li>
+<li><strong>Listen to replies:</strong> tap <strong>Read aloud</strong> under any reply. Pause and Stop appear at the top of the chat while it reads.</li>
+<li><strong>Choose the voice:</strong> use the <strong>Voice</strong> panel above (on a phone, <strong>Voice &amp; new chat</strong>) to pick a reading voice and speed, turn on automatic reading, and set the voice input language. Your choices are remembered on your device.</li>
+</ul>
+<p><strong>Privacy:</strong> conversations are not saved; refreshing the page or choosing <strong>New chat</strong> clears them. Only a filed case is kept, as described on the <a href="../privacy.html">Privacy</a> page.</p>
+</details>
 </aside>
 <section class="chat" aria-label="Root and Ritual AI conversation">
 <div class="chatbar"><div><div class="eyebrow">The Sanctorum · Conversation desk</div><h1>Root &amp; Ritual AI Chat</h1></div>
@@ -124,7 +146,7 @@ function message(html,role,spoken){
 function chips(card,list){const row=document.createElement('div');row.className='chips';list.forEach(([label,fn])=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{row.remove();fn();};row.append(b);});card.append(row);}
 
 function welcome(){
- $('messages').innerHTML='<div class="welcome" id="welcome"><div class="eyebrow">Every conversation leaves a root.</div><h2>How can I help you?</h2><p>I’m the Root &amp; Ritual AI. I can search the archive’s database and ledger, or take down a case for the Intake desk. <a href="../organization.html#ai-chat">How I work</a></p><div class="choices"><button type="button" class="primary" data-pick="search">1. Database &amp; ledger search</button><button type="button" data-pick="case">2. Submit a case</button></div></div>';
+ $('messages').innerHTML='<div class="welcome" id="welcome"><div class="eyebrow">Every conversation leaves a root.</div><h2>How can I help you?</h2><p>I’m the Root &amp; Ritual AI. I can search the archive’s database and ledger, or take down a case for the Intake desk. <a href="#howTo" onclick="document.getElementById(&quot;howTo&quot;).open=true">How I work</a></p><div class="choices"><button type="button" class="primary" data-pick="search">1. Database &amp; ledger search</button><button type="button" data-pick="case">2. Submit a case</button></div></div>';
  $('messages').querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>setMode(b.dataset.pick,true));
 }
 function setMode(m,announce){
